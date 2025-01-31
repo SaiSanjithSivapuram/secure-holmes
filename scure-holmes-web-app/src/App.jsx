@@ -43,7 +43,7 @@ function App() {
       }
 
       fetchData(); // Fetch initially
-      const interval = setInterval(fetchData, 5000); // Fetch every 5 seconds
+      const interval = setInterval(fetchData, 10000); // Fetch every 5 seconds
 
       return () => clearInterval(interval); // Cleanup interval on unmount
     }
