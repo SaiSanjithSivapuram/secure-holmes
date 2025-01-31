@@ -25,20 +25,27 @@ function App() {
 
   useEffect(() => {
     if (status) {
-      fetch("http://127.0.0.1:3001/get_match_result")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not OK");
-          }
-          return response.json(); // Convert response to JSON
-        })
-        .then((data) => {
-          console.log(data?.result)
-          setMatchResult(data?.result); // Extract 'result' from JSON
-        })
-        .catch(() => {
-          setMatchResult("No")
-        })
+      const fetchData = () => {
+        fetch("http://127.0.0.1:3001/get_match_result")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not OK");
+            }
+            return response.json(); // Convert response to JSON
+          })
+          .then((data) => {
+            console.log(data?.result)
+            setMatchResult(data?.result); // Extract 'result' from JSON
+          })
+          .catch(() => {
+            setMatchResult("No")
+          })
+      }
+
+      fetchData(); // Fetch initially
+      const interval = setInterval(fetchData, 5000); // Fetch every 5 seconds
+
+      return () => clearInterval(interval); // Cleanup interval on unmount
     }
   }, [status])
 
@@ -67,7 +74,9 @@ function App() {
           {status ?
             <div>
               <img src="http://127.0.0.1:3001/video_feed" alt="Webcam Stream" style={{ width: "100%", borderRadius: "10px" }} />
-              <Typography variant='h6' style={{ marginTop: "10vh", color: "#3498db" }}>{matchResult}</Typography>
+              {matchResult === "Processing..." && <Typography variant='h6' style={{ marginTop: "10vh", color: "#3498db", backgroundColor: "#e74c3c", borderRadius: "10px" }}>Processing Please Wait</Typography>}
+              {matchResult === "Match: Yes" && <Typography variant='h6' style={{ marginTop: "10vh", color: "#FFFFFF", backgroundColor: "#27ae60", borderRadius: "10px" }}>Face Matched</Typography>}
+              {matchResult === "Match: No" && <Typography variant='h6' style={{ marginTop: "10vh", color: "#FFFFFF", backgroundColor: "#e74c3c", borderRadius: "10px" }}>No Match</Typography>}
               <Button variant="contained" className="recording-btn" startIcon={<RefreshIcon />} onClick={getResult} style={{ marginBottom: "10vh" }}>Refresh Data</Button>
             </div>
             :
