@@ -1,0 +1,28 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.webcam {
+  margin-top: 10vh;
+}
+
+.recording-btn {
+  margin-top: 5vh !important;
+  padding: 10px 12px !important;
+}
+
+.video-card {
+  border-radius: 10px !important;
+  box-shadow: -8px 10px 50px 5px rgba(0, 0, 0, 25%);
+}
+
+.heading {
+  color: #3498db !important;
+  font-weight: 700 !important;
+  font-family: monospace !important;
+}
+
+.recording-area {
+  width: 100% !important;
+}
