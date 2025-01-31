@@ -2,8 +2,10 @@ from flask import Flask, render_template, Response, jsonify
 import cv2
 import threading
 from deepface import DeepFace
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app);
 
 ref_img = "demo.jpg"
 
@@ -71,4 +73,4 @@ def get_match_result():
         return jsonify({"result": match_result})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=3001, debug=True)
